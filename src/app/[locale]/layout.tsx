@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
-import { APP_CONFIG } from "@/config/app";
+import { AppShell } from "@/components/layout/app-shell";
+import { getDictionary } from "@/i18n/get-dictionary";
 import {
   getDirection,
   isLocale,
@@ -9,56 +9,44 @@ import {
   type Locale,
 } from "@/i18n/config";
 
-export const dynamicParams = false;
+interface LocaleLayoutProps {
+  children: ReactNode;
+  params: Promise<{ locale: string }>;
+}
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale: rawLocale } = await params;
-
-  if (!isLocale(rawLocale)) {
-    return {};
-  }
-
-  return {
-    title: APP_CONFIG.name,
-    description: APP_CONFIG.description,
-    alternates: {
-      languages: Object.fromEntries(
-        locales.map((supportedLocale) => [
-          supportedLocale,
-          `/${supportedLocale}`,
-        ]),
-      ),
-    },
-  };
-}
+export const dynamicParams = false;
 
 export default async function LocaleLayout({
   children,
   params,
-}: Readonly<{
-  children: ReactNode;
-  params: Promise<{ locale: string }>;
-}>) {
-  const { locale: rawLocale } = await params;
+}: LocaleLayoutProps) {
+  const { locale: localeParam } = await params;
 
-  if (!isLocale(rawLocale)) {
+  if (!isLocale(localeParam)) {
     notFound();
   }
 
-  const locale: Locale = rawLocale;
+  const locale = localeParam as Locale;
   const direction = getDirection(locale);
+  const dictionary = await getDictionary(locale);
 
   return (
-    <div lang={locale} dir={direction} data-locale={locale}>
-      {children}
+    <div
+      lang={locale}
+      dir={direction}
+      data-locale={locale}
+      className="locale-root"
+    >
+      <AppShell
+        locale={locale}
+        navigationLabels={dictionary.navigation}
+      >
+        {children}
+      </AppShell>
     </div>
   );
 }

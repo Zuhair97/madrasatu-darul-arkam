@@ -5,12 +5,37 @@ export const ha: Dictionary = {
     appName: "Madrasatu Darul Arkam",
     schoolManagementSystem: "Tsarin Gudanar da Bayanan Makaranta",
     welcome: "Barka da zuwa",
-    dashboard: "Babban Shafi",
+    dashboard: "Dashboard",
     language: "Harshe",
   },
+
   home: {
     title: "Madrasatu Darul Arkam",
     description:
-      "Tsarin zamani na gudanar da bayanan makaranta domin sauƙaƙa harkokin ilimi da gudanarwa.",
+      "Tsarin zamani na gudanar da makaranta domin inganta harkokin karatu da gudanar da ayyukan makaranta.",
+  },
+
+  navigation: {
+    dashboard: "Dashboard",
+    students: "Dalibai",
+    academics: "Karatu",
+    results: "Sakamakon Karatu",
+    attendance: "Halartar Makaranta",
+    finance: "Kuɗaɗe",
+    tahfiz: "Tahfiz / Ilimin Addini",
+    communication: "Sadarwa",
+    reports: "Rahotanni",
+    settings: "Saituna",
+  },
+
+  roles: {
+    superAdmin: "Babban Mai Gudanarwa",
+    schoolAdministrator: "Mai Gudanar da Makaranta",
+    principal: "Principal / Shugaban Makaranta",
+    teacher: "Malami",
+    accountant: "Ma'aji",
+    student: "Dalibi",
+    parentGuardian: "Uba / Mai Kula da Dalibi",
+    resultChecker: "Mai Duba Sakamako",
   },
 };

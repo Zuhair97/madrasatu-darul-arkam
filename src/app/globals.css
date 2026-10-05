@@ -100,3 +100,426 @@ h1 {
 .status-card button {
   margin-top: 16px;
 }
+
+:root {
+  --color-white: #ffffff;
+  --color-black: #111111;
+  --color-brand: #eaf7ef;
+  --color-brand-text: #8bbf9b;
+  --color-brand-strong: #d9f0e1;
+  --color-border: #e5e7eb;
+  --color-muted: #6b7280;
+
+  --surface-page: var(--color-white);
+  --surface-card: var(--color-white);
+  --surface-sidebar: var(--color-white);
+  --surface-active: var(--color-brand);
+
+  --text-primary: var(--color-black);
+  --text-secondary: #4b5563;
+
+  --border-default: var(--color-border);
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 12px rgb(0 0 0 / 0.08);
+
+  --sidebar-width: 17rem;
+  --header-height: 4rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--surface-page);
+  color: var(--text-primary);
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-black);
+  outline-offset: 2px;
+}
+
+[data-locale="ar"] {
+  direction: rtl;
+}
+
+[data-locale="en"],
+[data-locale="ha"] {
+  direction: ltr;
+}
+
+/* =========================================
+   DARUL ARKAM SCHOOL BRANDING HEADER
+   ========================================= */
+
+.site-header {
+  position: relative;
+  width: 100%;
+  background: var(--color-white);
+  border-bottom: 1px solid var(--border-default);
+  box-shadow: var(--shadow-sm);
+  z-index: 40;
+}
+
+.site-header__branding {
+  width: 100%;
+  padding: 1.5rem 1rem 1.25rem;
+}
+
+.school-branding {
+  width: min(100%, 72rem);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.school-branding__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+}
+
+.school-branding__logo img {
+  width: 7.5rem;
+  height: 7.5rem;
+  object-fit: contain;
+}
+
+.school-branding__identity {
+  width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.school-branding__arabic,
+.school-branding__name {
+  color: var(--color-brand-text);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.school-branding__arabic {
+  font-size: clamp(1.35rem, 3vw, 1.85rem);
+  margin-bottom: 0.25rem;
+}
+
+.school-branding__name {
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  letter-spacing: 0.02em;
+  margin-bottom: 0.55rem;
+}
+
+.school-branding__institution,
+.school-branding__contact,
+.school-branding__web {
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.school-branding__institution {
+  font-size: clamp(0.9rem, 2vw, 1.05rem);
+  font-weight: 600;
+}
+
+.school-branding__contact,
+.school-branding__web {
+  font-size: clamp(0.82rem, 1.8vw, 0.95rem);
+}
+
+.school-branding__web {
+  margin-top: 0.1rem;
+}
+
+.school-branding__web a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-header__tools {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 0 1rem 0.85rem;
+}
+
+.locale-switcher {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  background: var(--surface-active);
+  border: 1px solid var(--color-brand-strong);
+  border-radius: 999px;
+}
+
+.locale-switcher__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  color: var(--text-primary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.locale-switcher__link:hover {
+  background: var(--color-white);
+}
+
+.locale-switcher__link--active {
+  background: var(--color-black);
+  color: var(--color-white);
+}
+
+@media (max-width: 640px) {
+  .site-header__branding {
+    padding: 1rem 0.75rem 0.9rem;
+  }
+
+  .school-branding__logo img {
+    width: 5.5rem;
+    height: 5.5rem;
+  }
+
+  .school-branding__contact,
+  .school-branding__web {
+    line-height: 1.6;
+  }
+
+  .site-header__tools {
+    padding-bottom: 0.7rem;
+  }
+
+  .locale-switcher {
+    width: min(100%, 20rem);
+  }
+
+  .locale-switcher__link {
+    flex: 1;
+    padding-inline: 0.5rem;
+  }
+}
+
+/* =========================================
+   PRODUCTION APPLICATION UI SHELL
+   ========================================= */
+
+.locale-root {
+  min-height: 100vh;
+}
+
+.app-shell {
+  min-height: 100vh;
+  background: var(--surface-page);
+}
+
+.app-shell__body {
+  display: flex;
+  align-items: stretch;
+  min-height: calc(100vh - 1px);
+}
+
+.desktop-sidebar {
+  flex: 0 0 var(--sidebar-width);
+  width: var(--sidebar-width);
+  background: var(--surface-sidebar);
+  border-inline-end: 1px solid var(--border-default);
+}
+
+.desktop-sidebar__inner {
+  position: sticky;
+  top: 0;
+  max-height: calc(100vh - 1px);
+  overflow-y: auto;
+  padding: 1rem 0.75rem;
+}
+
+.main-navigation {
+  width: 100%;
+}
+
+.main-navigation__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navigation-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 2.75rem;
+  width: 100%;
+  padding: 0.625rem 0.75rem;
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background-color 150ms ease,
+    transform 150ms ease;
+}
+
+.navigation-item:hover {
+  background: var(--surface-active);
+}
+
+.navigation-item:active {
+  transform: translateY(1px);
+}
+
+.navigation-item__icon {
+  flex: 0 0 auto;
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.app-shell__main {
+  min-width: 0;
+  flex: 1;
+}
+
+.app-shell__content {
+  width: min(100%, 96rem);
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.mobile-nav__bar {
+  display: none;
+}
+
+.mobile-nav__trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--text-primary);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+
+.mobile-nav__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgb(0 0 0 / 0.35);
+}
+
+.mobile-nav__panel {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: min(85vw, 20rem);
+  overflow-y: auto;
+  padding: 1rem;
+  background: var(--color-white);
+  box-shadow: var(--shadow-md);
+}
+
+[data-locale="ar"] .mobile-nav__panel {
+  inset-inline-start: auto;
+  inset-inline-end: 0;
+}
+
+.mobile-nav__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--border-default);
+}
+
+.mobile-nav__title {
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.mobile-nav__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--text-primary);
+  font-size: 1.35rem;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .desktop-sidebar {
+    display: none;
+  }
+
+  .mobile-nav__bar {
+    display: flex;
+    align-items: center;
+    min-height: 4rem;
+    padding: 0.625rem 1rem;
+    border-bottom: 1px solid var(--border-default);
+    background: var(--color-white);
+  }
+
+  .app-shell__content {
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .mobile-nav__bar {
+    min-height: 3.75rem;
+    padding-inline: 0.75rem;
+  }
+
+  .app-shell__content {
+    padding: 1rem 0.75rem;
+  }
+
+  .navigation-item {
+    min-height: 2.85rem;
+  }
+}
