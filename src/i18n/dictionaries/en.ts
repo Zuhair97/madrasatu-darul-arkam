@@ -15,6 +15,17 @@ export const en: Dictionary = {
       "A professional school management information system for efficient academic and administrative operations.",
   },
 
+  auth: {
+    loginTitle: "Sign in",
+    loginDescription: "Sign in to access the Madrasatu Darul Arkam school management system.",
+    email: "Email",
+    password: "Password",
+    login: "Login",
+    loggingIn: "Signing in...",
+    forgotPassword: "Forgot password?",
+    showPassword: "Show password",
+    hidePassword: "Hide password",
+  },
   navigation: {
     dashboard: "Dashboard",
     students: "Students",

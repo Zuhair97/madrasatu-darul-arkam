@@ -40,6 +40,17 @@ export interface Dictionary {
     description: string;
   };
 
+  auth: {
+    loginTitle: string;
+    loginDescription: string;
+    email: string;
+    password: string;
+    login: string;
+    loggingIn: string;
+    forgotPassword: string;
+    showPassword: string;
+    hidePassword: string;
+  };
   navigation: NavigationLabels;
 
   roles: RoleLabels;

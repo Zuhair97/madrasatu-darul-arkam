@@ -15,6 +15,17 @@ export const ar: Dictionary = {
       "نظام احترافي لإدارة معلومات المدرسة لتحسين العمليات الأكاديمية والإدارية بكفاءة.",
   },
 
+  auth: {
+    loginTitle: "تسجيل الدخول",
+    loginDescription: "سجّل الدخول للوصول إلى نظام إدارة مدرسة دار الأرقم.",
+    email: "البريد الإلكتروني",
+    password: "كلمة المرور",
+    login: "تسجيل الدخول",
+    loggingIn: "جارٍ تسجيل الدخول...",
+    forgotPassword: "هل نسيت كلمة المرور؟",
+    showPassword: "إظهار كلمة المرور",
+    hidePassword: "إخفاء كلمة المرور",
+  },
   navigation: {
     dashboard: "لوحة التحكم",
     students: "الطلاب",

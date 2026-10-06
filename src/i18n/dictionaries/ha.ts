@@ -15,6 +15,17 @@ export const ha: Dictionary = {
       "Tsarin zamani na gudanar da makaranta domin inganta harkokin karatu da gudanar da ayyukan makaranta.",
   },
 
+  auth: {
+    loginTitle: "Shiga",
+    loginDescription: "Shiga domin samun damar amfani da tsarin gudanar da makarantar Madrasatu Darul Arkam.",
+    email: "Imel",
+    password: "Kalmar sirri",
+    login: "Shiga",
+    loggingIn: "Ana shiga...",
+    forgotPassword: "Ka manta kalmar sirri?",
+    showPassword: "Nuna kalmar sirri",
+    hidePassword: "Boye kalmar sirri",
+  },
   navigation: {
     dashboard: "Dashboard",
     students: "Dalibai",
