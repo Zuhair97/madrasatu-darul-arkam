@@ -50,7 +50,48 @@ The system should enable the school to:
 
 ---
 
-# 4. Languages
+# 4. Connectivity & Offline Capability
+
+The system follows an **Online-First + Offline-Capable** model.
+
+The production Supabase/PostgreSQL database remains the authoritative source of truth.
+
+Selected workflows may operate offline using locally synchronized data:
+
+- Cached student records
+- Attendance entry
+- Basic score entry
+- Tahfiz progress entry
+- Draft reports
+- Cached timetable
+
+The following remain online-controlled:
+
+- User and role management
+- Final result publication
+- Critical finance finalization
+- Public result verification
+- Database administration
+- Backup and synchronization
+- AI services requiring connectivity
+- WhatsApp/SMS/email integrations
+- Online payment processing
+
+Offline operations must:
+
+- Use IndexedDB or an equivalent structured local store
+- Minimize locally cached sensitive data
+- Clearly show pending synchronization state
+- Use an operation queue
+- Use idempotent operation identifiers
+- Revalidate authorization and business rules during synchronization
+- Record synchronization status
+- Surface conflicts and rejected operations
+- Never present pending local work as server-confirmed
+
+Offline capability does not introduce multi-school SaaS or tenant infrastructure.
+
+# 5. Languages
 
 The system shall support:
 
@@ -73,7 +114,7 @@ Translation alone is not sufficient.
 
 ---
 
-# 5. Core Modules
+# 6. Core Modules
 
 ## School Management
 - school profile
@@ -148,7 +189,7 @@ Translation alone is not sufficient.
 
 ---
 
-# 6. Optional / Deferred Features
+# 7. Optional / Deferred Features
 
 The following are not required to delay the core system:
 
@@ -175,7 +216,7 @@ Potential post-delivery upgrade.
 
 ---
 
-# 7. MVP Scope
+# 8. MVP Scope
 
 The practical first production milestone should prioritize:
 
@@ -202,7 +243,7 @@ The practical first production milestone should prioritize:
 
 ---
 
-# 8. Future Scope
+# 9. Future Scope
 
 Potential future upgrades:
 
@@ -237,7 +278,7 @@ The project does not currently include:
 
 ---
 
-# 10. Data Ownership
+# 11. Data Ownership
 
 School operational data belongs to the school authority according to the commercial agreement.
 
@@ -255,7 +296,7 @@ Data access must be governed by authorization and security controls.
 
 ---
 
-# 11. Handover
+# 12. Handover
 
 Before final delivery, ownership/control responsibilities must be explicitly documented for:
 
@@ -273,7 +314,7 @@ Source-code ownership should be defined contractually, including distinction bet
 
 ---
 
-# 12. Quality Standard
+# 13. Quality Standard
 
 The system must be:
 

@@ -153,7 +153,78 @@ The system shall support reports for:
 
 Exports may include PDF, Excel, and CSV where appropriate.
 
-## 8. Language Requirements
+## 8. Connectivity & Offline Requirements
+
+The system shall follow an **Online-First + Offline-Capable** architecture.
+
+The production Supabase/PostgreSQL database shall remain the authoritative source of truth.
+
+### Approved Offline Workflows
+
+The system may support offline operation for:
+
+- Previously synchronized student records
+- Attendance entry
+- Basic score entry
+- Tahfiz progress entry
+- Draft reports
+- Cached timetable information
+
+### Offline Storage
+
+- IndexedDB or an equivalent structured local storage mechanism shall be used.
+- Sensitive data shall be minimized in local storage.
+- Offline data shall have explicit synchronization status.
+- Pending local changes shall never be represented as server-confirmed data.
+
+### Synchronization
+
+Offline changes shall be placed into a controlled operation queue.
+
+Each queued operation shall use an idempotent identifier.
+
+When synchronization occurs, the server shall revalidate:
+
+- Authentication/session state where required
+- User authorization
+- Business rules
+- Data integrity constraints
+- Current authoritative state
+
+Rejected or conflicting operations shall be surfaced for appropriate review.
+
+### Online-Controlled Operations
+
+The following shall require online connectivity:
+
+- User and role management
+- Final result publication
+- Critical finance finalization
+- Public result verification
+- Database administration
+- Backup and synchronization
+- AI research/services requiring external connectivity
+- External messaging providers
+- Online payment processing
+
+### Conflict Handling
+
+Conflict resolution shall be domain-aware.
+
+Sensitive academic and financial data shall not be silently overwritten.
+
+Offline capability shall never bypass:
+
+- Authentication
+- RBAC
+- RLS
+- Server-side validation
+- Audit logging
+- Database integrity constraints
+
+Future PWA/service-worker implementation must be deliberately designed, tested, and production-safe.
+
+## 9. Language Requirements
 
 Supported languages:
 
@@ -165,7 +236,7 @@ Arabic shall use true RTL layout.
 
 Language switching must not compromise authorization or data integrity.
 
-## 9. AI Requirements
+## 10. AI Requirements
 
 AI services may provide:
 
@@ -182,7 +253,7 @@ AI must respect user permissions.
 
 AI must not have unrestricted database access.
 
-## 10. Security Requirements
+## 11. Security Requirements
 
 The system shall implement:
 
@@ -198,7 +269,7 @@ The system shall implement:
 - security headers
 - protected public endpoints
 
-## 11. Non-Functional Requirements
+## 12. Non-Functional Requirements
 
 The system should be:
 
@@ -212,19 +283,19 @@ The system should be:
 - multilingual
 - production-ready
 
-## 12. Performance Requirements
+## 13. Performance Requirements
 
 Common school operations should respond efficiently under expected school workload.
 
 Heavy operations such as timetable generation and large reports should be handled without blocking normal application operations unnecessarily.
 
-## 13. Backup Requirements
+## 14. Backup Requirements
 
 Production data must have an appropriate backup strategy.
 
 Backup and recovery procedures must be documented before handover.
 
-## 14. Handover Requirements
+## 15. Handover Requirements
 
 Before final acceptance, the delivery package should include:
 

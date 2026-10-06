@@ -89,7 +89,102 @@ The architecture must support:
 
 Language support must be implemented as a system capability rather than duplicated application pages.
 
-## 5. Authorization Architecture
+## 5. Connectivity & Offline-Capable Architecture
+
+The application follows an **Online-First + Offline-Capable** architecture.
+
+The production Supabase/PostgreSQL database remains the authoritative source of truth. Offline capability is provided only for selected operational workflows where it improves reliability and usability without weakening security, authorization, data integrity, or auditability.
+
+### Online Capabilities
+
+The online application provides:
+
+- Authentication and session validation
+- Current student, staff, academic, attendance, finance, and Tahfiz data
+- Role and permission enforcement
+- Result publication
+- Critical financial operations
+- User and role management
+- Synchronization and backup operations
+- AI services and research
+- External communication integrations
+- Public result verification
+
+### Approved Offline Capabilities
+
+Selected workflows may operate using previously synchronized data:
+
+- View previously synchronized student records
+- Attendance entry
+- Basic score entry
+- Tahfiz progress entry
+- Draft reports
+- Cached timetable information
+
+Offline-capable records must clearly expose their synchronization state:
+
+- Locally stored
+- Pending synchronization
+- Synchronized
+- Rejected
+- Conflict requiring review
+
+### Local Storage
+
+Structured school records intended for offline operation must use **IndexedDB or an equivalent structured local storage abstraction**, not localStorage.
+
+Only the minimum necessary data should be cached locally.
+
+Sensitive data must not be cached unnecessarily, and offline storage must never be treated as a replacement for server-side security.
+
+### Synchronization
+
+When connectivity returns, queued operations must be synchronized through controlled application services.
+
+The synchronization process must:
+
+1. Validate the authenticated session where required.
+2. Validate the user's authorization.
+3. Validate the queued operation against current server-side business rules.
+4. Use idempotent operation identifiers to prevent duplicate writes.
+5. Commit accepted operations to the authoritative database.
+6. Record synchronization status.
+7. Surface rejected operations and conflicts for appropriate review.
+
+The server remains the source of truth.
+
+### Conflict Resolution
+
+Conflict handling must be domain-aware.
+
+- Cached read-only information may become stale and must be identified appropriately.
+- Attendance synchronization should use deterministic domain rules.
+- Score and result changes must not silently overwrite competing authoritative changes.
+- Financial finalization must remain online-controlled.
+- Published results must remain online-controlled.
+- Unresolved conflicts must require authorized review.
+
+Offline capability must never bypass authentication, RBAC, RLS, validation, audit logging, or database integrity constraints.
+
+### Online-Only Operations
+
+The following operations require online connectivity:
+
+- User and role management
+- Final result publication
+- Critical finance finalization
+- Public result verification
+- Database administration
+- Backup and synchronization services
+- AI research and AI services requiring external connectivity
+- WhatsApp, SMS, email, and other external provider integrations
+- Online payment processing
+
+The system must never display a locally queued operation as if it has already been completed on the production server.
+
+The application may later evolve into a PWA with service-worker support. Service-worker caching, IndexedDB, synchronization, offline session behavior, and connectivity transitions must be deliberately designed, tested, and production-safe rather than implemented as placeholders.
+
+## 6. Authorization Architecture
 
 Access control uses:
 
@@ -101,7 +196,7 @@ Database policies provide an additional security boundary.
 
 No sensitive school data should depend only on frontend authorization.
 
-## 6. Data Ownership
+## 7. Data Ownership
 
 School operational data belongs to the school authority.
 
@@ -195,7 +290,7 @@ A timetable must pass conflict validation before publication.
 
 Final publication requires Human Approval.
 
-## 9. Secure Result Checker
+## 10. Secure Result Checker
 
 The Result Checker is a separate security-sensitive module.
 
@@ -213,7 +308,7 @@ Expected protections include:
 
 Public users must not gain unrestricted database access.
 
-## 10. Finance Architecture
+## 11. Finance Architecture
 
 Internal finance functionality may include:
 
@@ -230,7 +325,7 @@ Online payment gateway integration is deferred pending client approval and requi
 
 No fake payment integration is permitted.
 
-## 11. Communication Architecture
+## 12. Communication Architecture
 
 Communication uses a provider-agnostic notification service.
 
@@ -295,7 +390,7 @@ Security architecture includes:
 
 Sensitive actions should be auditable.
 
-## 14. Production Environment
+## 15. Production Environment
 
 Separate environments should be maintained where practical:
 
@@ -305,7 +400,7 @@ Separate environments should be maintained where practical:
 
 Production secrets must never be committed to Git.
 
-## 15. Reusable Foundation
+## 16. Reusable Foundation
 
 The system should be architected as a reusable professional School Management Foundation.
 
@@ -328,7 +423,7 @@ The initial system will NOT require:
 
 The architecture should remain modular enough to support future upgrades without forcing those features into the current project.
 
-## 17. Handover Readiness
+## 18. Handover Readiness
 
 The architecture must support final handover including:
 
