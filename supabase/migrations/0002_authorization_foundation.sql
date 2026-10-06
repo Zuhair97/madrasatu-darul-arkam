@@ -58,12 +58,12 @@ create index if not exists permissions_domain_idx
 -- ============================================================================
 
 create table if not exists public.role_permissions (
-  role public.user_role not null,
+  role_code public.user_role not null,
   permission_id bigint not null,
 
   created_at timestamptz not null default timezone('utc', now()),
 
-  primary key (role, permission_id),
+  primary key (role_code, permission_id),
 
   constraint role_permissions_permission_fk
     foreign key (permission_id)
@@ -130,16 +130,16 @@ set
 -- responsibilities. Resource ownership/scope remains a separate control.
 -- ============================================================================
 
-insert into public.role_permissions (role, permission_id)
+insert into public.role_permissions (role_code, permission_id)
 select
   'super_admin'::public.user_role,
   p.id
 from public.permissions p
-on conflict (role, permission_id) do nothing;
+on conflict (role_code, permission_id) do nothing;
 
-insert into public.role_permissions (role, permission_id)
+insert into public.role_permissions (role_code, permission_id)
 select
-  r.role,
+  r.role_code,
   p.id
 from (
   values
@@ -159,14 +159,14 @@ from (
     ('school_administrator'::public.user_role, 'reports.view'),
     ('school_administrator'::public.user_role, 'reports.generate'),
     ('school_administrator'::public.user_role, 'settings.view')
-) as r(role, permission_key)
+) as r(role_code, permission_key)
 join public.permissions p
   on p.permission_key = r.permission_key
-on conflict (role, permission_id) do nothing;
+on conflict (role_code, permission_id) do nothing;
 
-insert into public.role_permissions (role, permission_id)
+insert into public.role_permissions (role_code, permission_id)
 select
-  r.role,
+  r.role_code,
   p.id
 from (
   values
@@ -180,14 +180,14 @@ from (
     ('principal'::public.user_role, 'communication.view'),
     ('principal'::public.user_role, 'reports.view'),
     ('principal'::public.user_role, 'reports.generate')
-) as r(role, permission_key)
+) as r(role_code, permission_key)
 join public.permissions p
   on p.permission_key = r.permission_key
-on conflict (role, permission_id) do nothing;
+on conflict (role_code, permission_id) do nothing;
 
-insert into public.role_permissions (role, permission_id)
+insert into public.role_permissions (role_code, permission_id)
 select
-  r.role,
+  r.role_code,
   p.id
 from (
   values
@@ -200,14 +200,14 @@ from (
     ('teacher'::public.user_role, 'attendance.manage'),
     ('teacher'::public.user_role, 'tahfiz.view'),
     ('teacher'::public.user_role, 'tahfiz.manage')
-) as r(role, permission_key)
+) as r(role_code, permission_key)
 join public.permissions p
   on p.permission_key = r.permission_key
-on conflict (role, permission_id) do nothing;
+on conflict (role_code, permission_id) do nothing;
 
-insert into public.role_permissions (role, permission_id)
+insert into public.role_permissions (role_code, permission_id)
 select
-  r.role,
+  r.role_code,
   p.id
 from (
   values
@@ -216,14 +216,14 @@ from (
     ('accountant'::public.user_role, 'finance.manage'),
     ('accountant'::public.user_role, 'reports.view'),
     ('accountant'::public.user_role, 'reports.generate')
-) as r(role, permission_key)
+) as r(role_code, permission_key)
 join public.permissions p
   on p.permission_key = r.permission_key
-on conflict (role, permission_id) do nothing;
+on conflict (role_code, permission_id) do nothing;
 
-insert into public.role_permissions (role, permission_id)
+insert into public.role_permissions (role_code, permission_id)
 select
-  r.role,
+  r.role_code,
   p.id
 from (
   values
@@ -233,14 +233,14 @@ from (
     ('student'::public.user_role, 'attendance.view'),
     ('student'::public.user_role, 'tahfiz.view'),
     ('student'::public.user_role, 'communication.view')
-) as r(role, permission_key)
+) as r(role_code, permission_key)
 join public.permissions p
   on p.permission_key = r.permission_key
-on conflict (role, permission_id) do nothing;
+on conflict (role_code, permission_id) do nothing;
 
-insert into public.role_permissions (role, permission_id)
+insert into public.role_permissions (role_code, permission_id)
 select
-  r.role,
+  r.role_code,
   p.id
 from (
   values
@@ -251,10 +251,10 @@ from (
     ('parent_guardian'::public.user_role, 'tahfiz.view'),
     ('parent_guardian'::public.user_role, 'communication.view'),
     ('parent_guardian'::public.user_role, 'finance.view')
-) as r(role, permission_key)
+) as r(role_code, permission_key)
 join public.permissions p
   on p.permission_key = r.permission_key
-on conflict (role, permission_id) do nothing;
+on conflict (role_code, permission_id) do nothing;
 
 -- result_checker intentionally receives no internal database permission.
 -- Public result verification will use a dedicated controlled endpoint later.
@@ -311,7 +311,7 @@ as $$
     select 1
     from public.profiles profile
     join public.role_permissions rp
-      on rp.role = profile.role
+      on rp.role_code = profile.role
     join public.permissions permission
       on permission.id = rp.permission_id
     where profile.id = auth.uid()
