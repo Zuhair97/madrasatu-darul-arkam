@@ -58,7 +58,7 @@ Deliverables:
 
 # PHASE 1 — Production Foundation & Architecture
 
-Status: ⏳ Planned
+Status: 🟢 In Progress
 
 Scope:
 - Next.js
@@ -76,9 +76,43 @@ Scope:
 - English
 - Hausa
 - Arabic RTL
+- Online-First + Offline-Capable architecture
+- local offline storage strategy (IndexedDB)
+- synchronization and conflict-resolution architecture
+- PWA/offline implementation plan
 
 ---
 
+
+
+# PHASE 1B — Offline Capability & Synchronization Foundation
+
+Status: ⏳ Planned
+
+Objectives:
+- establish PWA/service-worker strategy
+- establish IndexedDB/local-store abstraction
+- define offline data boundaries
+- define offline operation and outbox model
+- establish idempotency strategy
+- build synchronization service
+- track connectivity state
+- implement conflict detection and domain-specific resolution
+- establish offline audit and security rules
+- test online/offline transitions
+- ensure server truth is never confused with pending local state
+
+Initial Offline Workflow Targets:
+- attendance
+- basic score entry
+- Tahfiz progress
+- cached student records
+- draft reports
+- cached timetable
+
+Offline capability shall be modular and enabled only for domains that can safely support it.
+
+---
 # PHASE 2 — School & Student Management
 
 Status: ⏳ Planned
@@ -379,7 +413,8 @@ Possible commercial models:
 # Current Status
 
 Phase 0: 🟡 In Progress
-Phase 1: ⏳ Planned
+Phase 1: 🟢 In Progress
+Phase 1B: ⏳ Planned
 Phase 2: ⏳ Planned
 Phase 3: ⏳ Planned
 Phase 4: 🟢 In Scope
