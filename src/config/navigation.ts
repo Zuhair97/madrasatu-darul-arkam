@@ -99,6 +99,8 @@ const ALL_PERMISSIONS: readonly Permission[] = [
   "reports.generate",
   "settings.view",
   "settings.manage",
+  "users.view",
+  "users.manage",
 ];
 
 export const ROLE_DEFINITIONS: readonly RoleDefinition[] = [
@@ -187,7 +189,7 @@ export const ROLE_DEFINITIONS: readonly RoleDefinition[] = [
   {
     role: "RESULT_CHECKER",
     labelKey: "roles.resultChecker",
-    permissions: ["results.view"],
+    permissions: [],
   },
 ];
 
