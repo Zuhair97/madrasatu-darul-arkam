@@ -3,7 +3,7 @@ import type { User } from "@supabase/supabase-js";
 
 import { createClient } from "@/lib/supabase/server";
 import type { Locale } from "@/i18n/config";
-import type { Role } from "@/types/navigation";
+import type { Permission, Role } from "@/types/navigation";
 
 export type DatabaseUserRole =
   | "super_admin"
@@ -203,6 +203,32 @@ export async function requireActiveUser(
 
   if (context.status !== "active") {
     redirect(`/${locale}/account-status`);
+  }
+
+  return context;
+}
+
+/**
+ * Requires an authenticated, active user with a specific application
+ * permission.
+ *
+ * Permission checks are performed server-side through the database
+ * authorization function. Navigation visibility is never treated as
+ * authorization.
+ */
+export async function requirePermission(
+  locale: Locale,
+  permission: Permission,
+): Promise<AuthContext> {
+  const context = await requireActiveUser(locale);
+  const supabase = await createClient();
+
+  const { data: allowed, error } = await supabase.rpc("has_permission", {
+    requested_permission: permission,
+  });
+
+  if (error || !allowed) {
+    redirect(`/${locale}/forbidden`);
   }
 
   return context;

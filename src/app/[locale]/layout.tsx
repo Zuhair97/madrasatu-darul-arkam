@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import { AppShell } from "@/components/layout/app-shell";
+import { getCurrentAuthContext } from "@/lib/auth/server";
 import { getDictionary } from "@/i18n/get-dictionary";
 import {
   getDirection,
@@ -33,6 +34,7 @@ export default async function LocaleLayout({
   const locale = localeParam as Locale;
   const direction = getDirection(locale);
   const dictionary = await getDictionary(locale);
+  const authContext = await getCurrentAuthContext();
 
   return (
     <div
@@ -44,6 +46,10 @@ export default async function LocaleLayout({
       <AppShell
         locale={locale}
         navigationLabels={dictionary.navigation}
+        dictionary={dictionary}
+        fullName={authContext?.profile.fullName ?? null}
+        role={authContext?.role}
+        status={authContext?.status}
       >
         {children}
       </AppShell>

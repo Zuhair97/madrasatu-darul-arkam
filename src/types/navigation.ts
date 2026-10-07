@@ -32,6 +32,8 @@ export const PERMISSIONS = [
   "reports.generate",
   "settings.view",
   "settings.manage",
+  "users.view",
+  "users.manage",
 ] as const;
 
 export type Permission = (typeof PERMISSIONS)[number];

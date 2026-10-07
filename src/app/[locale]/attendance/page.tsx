@@ -1,5 +1,6 @@
 import { ModulePage } from "@/components/ui/module-page";
 import { getDictionary } from "@/i18n/get-dictionary";
+import { requireActiveUser } from "@/lib/auth/server";
 import type { Locale } from "@/i18n/config";
 
 interface AttendancePageProps {
@@ -10,6 +11,7 @@ export default async function AttendancePage({
   params,
 }: AttendancePageProps) {
   const { locale } = await params;
+  await requireActiveUser(locale);
   const dictionary = await getDictionary(locale);
 
   return (
