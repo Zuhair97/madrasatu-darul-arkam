@@ -2,18 +2,18 @@
 
 import { useState } from "react";
 import type { Locale } from "@/i18n/config";
-import type { NavigationLabels, Role } from "@/types/navigation";
+import type { NavigationLabels, Permission } from "@/types/navigation";
 import { Navigation } from "@/components/layout/navigation";
 
 interface MobileNavProps {
   locale: Locale;
-  role?: Role;
+  permissions?: readonly Permission[];
   navigationLabels: NavigationLabels;
 }
 
 export function MobileNav({
   locale,
-  role,
+  permissions,
   navigationLabels,
 }: MobileNavProps) {
   const [open, setOpen] = useState(false);
@@ -60,7 +60,7 @@ export function MobileNav({
 
             <Navigation
               locale={locale}
-              role={role}
+              permissions={permissions}
               navigationLabels={navigationLabels}
               onNavigate={() => setOpen(false)}
             />

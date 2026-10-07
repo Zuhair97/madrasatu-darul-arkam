@@ -1,16 +1,16 @@
 import type { Locale } from "@/i18n/config";
-import type { NavigationLabels, Role } from "@/types/navigation";
+import type { NavigationLabels, Permission } from "@/types/navigation";
 import { Navigation } from "@/components/layout/navigation";
 
 interface SidebarProps {
   locale: Locale;
-  role?: Role;
+  permissions?: readonly Permission[];
   navigationLabels: NavigationLabels;
 }
 
 export function Sidebar({
   locale,
-  role,
+  permissions,
   navigationLabels,
 }: SidebarProps) {
   return (
@@ -18,7 +18,7 @@ export function Sidebar({
       <div className="desktop-sidebar__inner">
         <Navigation
           locale={locale}
-          role={role}
+          permissions={permissions}
           navigationLabels={navigationLabels}
         />
       </div>

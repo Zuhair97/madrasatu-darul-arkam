@@ -3,7 +3,7 @@ import { Header } from "@/components/layout/header";
 import { Sidebar } from "@/components/layout/sidebar";
 import { MobileNav } from "@/components/layout/mobile-nav";
 import type { Locale } from "@/i18n/config";
-import type { NavigationLabels, Role } from "@/types/navigation";
+import type { NavigationLabels, Permission, Role } from "@/types/navigation";
 import type { Dictionary } from "@/types/i18n";
 import type { DatabaseUserStatus } from "@/lib/auth/server";
 
@@ -15,6 +15,7 @@ interface AppShellProps {
   fullName?: string | null;
   role?: Role;
   status?: DatabaseUserStatus;
+  permissions?: readonly Permission[];
 }
 
 export function AppShell({
@@ -25,6 +26,7 @@ export function AppShell({
   fullName,
   role,
   status,
+  permissions,
 }: AppShellProps) {
   return (
     <div className="app-shell">
@@ -38,7 +40,7 @@ export function AppShell({
       <div className="app-shell__body">
         <Sidebar
           locale={locale}
-          role={role}
+          permissions={permissions}
           navigationLabels={navigationLabels}
         />
 
@@ -46,7 +48,7 @@ export function AppShell({
           <div className="mobile-nav__bar">
             <MobileNav
                   locale={locale}
-              role={role}
+              permissions={permissions}
               navigationLabels={navigationLabels}
             />
           </div>

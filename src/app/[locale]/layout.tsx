@@ -50,6 +50,7 @@ export default async function LocaleLayout({
         fullName={authContext?.profile.fullName ?? null}
         role={authContext?.role}
         status={authContext?.status}
+        permissions={authContext?.permissions}
       >
         {children}
       </AppShell>

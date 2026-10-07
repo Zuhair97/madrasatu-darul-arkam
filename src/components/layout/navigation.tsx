@@ -1,15 +1,15 @@
 import Link from "next/link";
-import { NAVIGATION_ITEMS, getVisibleNavigation } from "@/config/navigation";
+import { NAVIGATION_ITEMS } from "@/config/navigation";
 import type { Locale } from "@/i18n/config";
 import type {
   NavigationIcon,
   NavigationLabels,
-  Role,
+  Permission,
 } from "@/types/navigation";
 
 interface NavigationProps {
   locale: Locale;
-  role?: Role;
+  permissions?: readonly Permission[];
   navigationLabels: NavigationLabels;
   onNavigate?: () => void;
 }
@@ -56,11 +56,19 @@ function NavigationIconView({ icon }: { icon: NavigationIcon }) {
 
 export function Navigation({
   locale,
-  role,
+  permissions = [],
   navigationLabels,
   onNavigate,
 }: NavigationProps) {
-  const items = role ? getVisibleNavigation(role) : NAVIGATION_ITEMS;
+  const permissionSet = new Set(permissions);
+
+  const items = NAVIGATION_ITEMS.filter((item) => {
+    if (!item.permission) {
+      return true;
+    }
+
+    return permissionSet.has(item.permission);
+  });
 
   return (
     <nav className="main-navigation" aria-label="Main navigation">

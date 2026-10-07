@@ -3,7 +3,11 @@ import type { User } from "@supabase/supabase-js";
 
 import { createClient } from "@/lib/supabase/server";
 import type { Locale } from "@/i18n/config";
-import type { Permission, Role } from "@/types/navigation";
+import {
+  PERMISSIONS,
+  type Permission,
+  type Role,
+} from "@/types/navigation";
 
 export type DatabaseUserRole =
   | "super_admin"
@@ -36,6 +40,7 @@ export interface AuthContext {
   profile: AuthProfile;
   role: Role;
   status: DatabaseUserStatus;
+  permissions: readonly Permission[];
 }
 
 /**
@@ -147,6 +152,29 @@ export async function getCurrentProfile(
 }
 
 /**
+ * Returns the current user's effective permissions from the database.
+ *
+ * The database authorization mapping is authoritative. Local role
+ * definitions are not used to determine navigation visibility.
+ */
+export async function getCurrentPermissions(): Promise<readonly Permission[]> {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase.rpc("get_current_permissions");
+
+  if (error || !data) {
+    return [];
+  }
+
+  const allowed = new Set<string>(PERMISSIONS);
+
+  return (data as unknown[]).filter(
+    (permission): permission is Permission =>
+      typeof permission === "string" && allowed.has(permission),
+  );
+}
+
+/**
  * Returns the authenticated user's complete authorization context.
  *
  * No authorization decision should be based on a role supplied by the
@@ -165,11 +193,18 @@ export async function getCurrentAuthContext(): Promise<AuthContext | null> {
     return null;
   }
 
+  const role = toApplicationRole(profile.role);
+  const permissions =
+    profile.status === "active"
+      ? await getCurrentPermissions()
+      : [];
+
   return {
     user,
     profile,
-    role: toApplicationRole(profile.role),
+    role,
     status: profile.status,
+    permissions,
   };
 }
 
