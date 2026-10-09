@@ -294,6 +294,7 @@ Heavy operations such as timetable generation and large reports should be handle
 Production data must have an appropriate backup strategy.
 
 Backup and recovery procedures must be documented before handover.
+Before production handover, perform and record a restore/recovery test using the documented procedure; resolve critical failures before acceptance.
 
 ## 15. Handover Requirements
 
@@ -310,7 +311,7 @@ Before final acceptance, the delivery package should include:
 - user documentation
 - training
 
-## 15. Explicit Non-Goals
+## 16. Explicit Non-Goals
 
 The current project does not require:
 

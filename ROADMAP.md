@@ -103,7 +103,7 @@ Sensitive student, guardian, staff, finance, discipline, safeguarding and result
 
 # Digital Document Intake, OCR & AI Record Digitization
 
-Status: 🟢 Cross-Cutting Capability
+Status: ⏳ Planned cross-cutting capability — implementation, testing and client acceptance pending
 
 The system should support migration and digitization of existing paper/manual records and new uploaded documents.
 
@@ -835,6 +835,8 @@ Status: ⏳ Planned
 - SSL
 - environment variables
 - backups
+- documented backup/recovery procedure
+- restore/recovery test with recorded outcome before production handover
 - monitoring
 - admin/staff accounts
 - documentation

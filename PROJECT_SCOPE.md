@@ -261,7 +261,7 @@ Potential future upgrades:
 
 ---
 
-# 9. Explicit Non-Goals
+# 10. Explicit Non-Goals
 
 The project does not currently include:
 

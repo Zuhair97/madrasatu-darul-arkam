@@ -204,7 +204,7 @@ The production architecture must support independent school administration after
 
 Production credentials, database access, deployment access, backups, and domain control must be documented and transferred according to the commercial agreement.
 
-## 7. Academic Architecture
+## 8. Academic Architecture
 
 Academic management includes:
 
@@ -224,7 +224,7 @@ Academic management includes:
 - comments
 - academic reports
 
-## 8. AI-Assisted Master Timetable
+## 9. AI-Assisted Master Timetable
 
 The Master Timetable must use a hybrid architecture.
 
@@ -352,7 +352,7 @@ WhatsApp provider/API integration requires approved provider credentials.
 
 The system must never pretend that a message was delivered when no real provider was configured.
 
-## 12. AI Architecture
+## 13. AI Architecture
 
 AI services must operate through controlled application services.
 
@@ -371,7 +371,7 @@ AI capabilities may include:
 
 All AI access must respect user permissions.
 
-## 13. Audit & Security
+## 14. Audit & Security
 
 Security architecture includes:
 
@@ -408,7 +408,7 @@ The Darul Arkam deployment remains a single-school implementation.
 
 Reusable components may later be adapted for other school projects, subject to ownership and commercial agreements.
 
-## 16. Explicit Architectural Non-Goals
+## 17. Explicit Architectural Non-Goals
 
 The initial system will NOT require:
 
@@ -433,6 +433,7 @@ The architecture must support final handover including:
 - environment configuration
 - administrator access
 - backups
+- documented backup/recovery procedure and recorded restore-test result
 - documentation
 - user training
 - technical documentation
