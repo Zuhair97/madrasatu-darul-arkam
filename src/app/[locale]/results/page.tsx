@@ -1,6 +1,6 @@
 import { ModulePage } from "@/components/ui/module-page";
 import { getDictionary } from "@/i18n/get-dictionary";
-import { requireActiveUser } from "@/lib/auth/server";
+import { requirePermission } from "@/lib/auth/server";
 import type { Locale } from "@/i18n/config";
 
 interface ResultsPageProps {
@@ -11,7 +11,7 @@ export default async function ResultsPage({
   params,
 }: ResultsPageProps) {
   const { locale } = await params;
-  await requireActiveUser(locale);
+  await requirePermission(locale, "results.view");
   const dictionary = await getDictionary(locale);
 
   return (

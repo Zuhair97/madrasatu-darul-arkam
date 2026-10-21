@@ -141,14 +141,36 @@ for (const route of moduleRoutes) {
 
   const source = read(file);
 
-  assert.match(
-    source,
-    /requireActiveUser/,
-    `${route} must require an active authenticated user`,
-  );
+  if (route === "results") {
+    assert.match(
+      source,
+      /requirePermission\(locale,\s*["']results\.view["']\)/,
+      "results must enforce results.view on the server",
+    );
+  } else {
+    assert.match(
+      source,
+      /requireActiveUser/,
+      `${route} must require an active authenticated user`,
+    );
+  }
 }
 
-console.log("PASS: protected module routes require active users");
+console.log("PASS: protected module routes enforce their required server-side guards");
+
+// Results must require the specific viewing permission, not only an active account.
+const resultsPage = read("src/app/[locale]/results/page.tsx");
+assert.match(
+  resultsPage,
+  /requirePermission\(locale,\s*["']results\.view["']\)/,
+  "Results page must enforce results.view on the server",
+);
+assert.doesNotMatch(
+  resultsPage,
+  /requireActiveUser\(locale\)/,
+  "Results page must not rely on active-user status alone",
+);
+console.log("PASS: results page enforces results.view server-side");
 
 // -----------------------------------------------------------------------------
 // 5. Permission-protected user management
